@@ -5,8 +5,8 @@
     function sizeOptions() {
       return props.sizes.map(function(num) {
         return (
-            <option value={num} key={num}>{num}</option>
-          );
+          <option value={num} key={num}>{num}</option>
+        );
       });
     }
     
@@ -15,13 +15,13 @@
     }
     
     return (
-        <div className="field-group">
-          <label htmlFor="size-options">Size:</label>
-          <select defaultValue={props.size} name="sizeOptions" id="size-options" onChange={onSizeChange}>
-            	{sizeOptions()}
-          </select>
-        </div>
-      );
+      <div className="field-group">
+        <label htmlFor="size-options">Size:</label>
+        <select defaultValue={props.size} name="sizeOptions" id="size-options" onChange={onSizeChange}>
+          	{sizeOptions()}
+        </select>
+      </div>
+    );
   }
   
   function ColorSelector(props) {
@@ -33,10 +33,14 @@
       });
     }
     
+    function onColorChange(evt) {
+      props.handleColorChange(evt.target.value);
+    }
+    
     return (
       <div className="field-group">
         <label htmlFor="color-options">Color:</label>
-        <select defaultValue={props.color} name="colorOptions" id="color-options">
+        <select defaultValue={props.color} name="colorOptions" id="color-options" onChange={onColorChange}>
           	{colorOptions()}
         </select>
       </div>
@@ -55,15 +59,6 @@
         size: 8,
         sizes: window.Inventory.byColor["red"]
       };
-    },
-    
-    handleSizeChange: function(selectedSize) {
-      var availableColors = window.Inventory.bySize[selectedSize];
-      
-      this.setState({
-        colors: availableColors,
-        size: selectedSize
-      });
     },
     
     handleSizeChange: function(selectedSize) {
@@ -105,5 +100,6 @@
     }
   });
   
-  ReactDOM.render(React.createElement(ProductCustomizer), document.getElementById('react-root'));
+  ReactDOM.render(<ProductCustomizer />, document.getElementById('react-root'));
+
 })();
